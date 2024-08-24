@@ -4,7 +4,7 @@ import { writeFileSync } from "fs"
 import { calcular_media, gerar_numero_aleatorio, obter_numero, obter_numero_max, obter_numero_min_max, obter_texto } from "./utils.js"
 import { eh_numero_negativo, eh_numero_positivo, filter, gerar_elevar_com, gerar_multiplicacao_com, gerar_numero_nao_igual_a, gerar_reducao_fracao, gerar_se_tem_number, gerar_vetor_de_arquivoInformado, gerar_vetor_valor_informado, gerar_vetor_valores_aleatorios, identificar_posicao_vetor, inverter_vetor, maior, mapear, menor, mostrar_itens, reduzir, somar, tem_number, tem_posicao_number } from "./vetor_utils.js"
 import { mostrar_itens_e_posicao_vetor } from "../versaoTradicional/vetor_utils.js"
-import { FORMERR } from "dns"
+
 
 export function print(text){
     return console.log(text)
