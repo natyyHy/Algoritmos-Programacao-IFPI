@@ -195,8 +195,9 @@ function vetor_n_aleatorios(a,b){
     if(b > a) min = a , max = b
     
     let vetor = []
-    for(let i = min; i <= max;i++){
+    while(min <= max){
         vetor.push(random_number(a,b))
+        min++
     }
     return vetor
 }
