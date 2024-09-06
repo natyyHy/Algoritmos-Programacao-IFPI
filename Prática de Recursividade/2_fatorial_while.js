@@ -188,7 +188,7 @@ function contar_consoantes(frase){
 }
 
 
-// WHILE SO PARA CRIAR VETOR E UMA CONDIÇAO --------------------------
+
 function vetor_n_aleatorios(a,b){
     let min = 0 , max = 0
     if(a > b) min = b , max = a
