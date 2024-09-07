@@ -1,4 +1,2 @@
-ANOTAÇOES:
-    (1)-rodada com a mesma Torre gerada para o Jogador 2
-        - usei o metodo [... array] para se criar uma copia superficial do vetor
-          obs:.variaveis referenciam o mesmo objeto
+Hanói RGB
+Joguinho baseado na Torre de Hanói com três torres
