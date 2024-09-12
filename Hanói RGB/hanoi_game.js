@@ -1,21 +1,30 @@
-import { e_igual, get_number_min, get_operation, get_text, iniciar_itens, numero_jogadas_minimas, print } from './utils_game.js'
+import { get_number_min_max } from '../utils/io_utils.js'
+import { e_igual, get_operation, get_text, numero_jogadas_minimas, print, random_number } from './utils_game.js'
 
 function main(){
 
-    print('>>> JOGO HANOI RGB - (ROGERIO GORDINHO E BONITO >:3) <<<\n')
-
-    let numero_itens = get_number_min('>>> Digite o numero de itens para Torre R: ',2)
+    print('===== JOGO HANOI RGB - (ROGERIO GORDINHO E BONITO >:3) =====\n')
+    print('')
+    let nivel = get_number_min_max('>>> Digite o nivel do jogo (1)-Normal (2)-Medio (3)-Avançado: ',1,3)
     print('')
     let nome_jogador_1 = get_text('>>> Nome Jogador 1: ')
     print('')
     let nome_jogador_2 = get_text('>>> Nome Jogador 2: ')
 
-    let torre_inicial = iniciar_itens(numero_itens)
+    let torres = distribuir_itens_torres(nivel)
+    let torre_inicial = torres[0] , torre_G = torres[1] , torre_B = torres[2]
 
-    let torre_inicial_v1 = [... torre_inicial]
-    let jogadas_player1 = iniciar_jogo(numero_itens,nome_jogador_1,torre_inicial_v1)
-    let torre_inicial_v2 = [... torre_inicial]
-    let jogadas_player2 = iniciar_jogo(numero_itens,nome_jogador_2,torre_inicial_v2)
+    let copia1_v1 = [... torre_inicial]
+    let copia1_v2 = [... torre_G]
+    let copia1_v3 = [... torre_B]
+
+    let jogadas_player1 = iniciar_jogo(nome_jogador_1,copia1_v1,copia1_v2,copia1_v3)
+
+    let copia2_v1 = [... torre_inicial]
+    let copia2_v2 = [... torre_G]
+    let copia2_v3 = [... torre_B]
+
+    let jogadas_player2 = iniciar_jogo(nome_jogador_2,copia2_v1,copia2_v2,copia2_v3)
 
     let vencedor = ''
     if(jogadas_player1 === jogadas_player2) vencedor = 'EMPATE'
@@ -34,15 +43,15 @@ function main(){
 
 main()
 
-function iniciar_jogo(tamanho,nome,torre_inicial){
+function iniciar_jogo(nome,torre1,torre2,torre3){
     //acaba quando o jogador completar o jogo (RETORNAR QUANTIDADE DE MOVIMENTOS)
     print(`\n >>> Jogador ${nome}! O jogo COMEÇOU!\n`)
-    print(`\n>>> Quantidade minima de movimentos: ${numero_jogadas_minimas(tamanho)}\n`)
+    print(`\n>>> Quantidade minima de movimentos: ${numero_jogadas_minimas(torre1.length)}\n`)
     let jogadas = 0
 
-    let torre_R = torre_inicial
-    let torre_G = []
-    let torre_B = []
+    let torre_R = torre1
+    let torre_G = torre2
+    let torre_B = torre3
 
     while(!(jogo_finalizado(torre_R,torre_G,torre_B))){
 
@@ -112,4 +121,65 @@ function jogo_finalizado(torreR,torreG,torreB){
 function imprimir_torre(torre){
     let img = torre.length > 0 ? torre.join(' ') : '[ vazio ]'
     return img
+}
+
+function distribuir_itens_torres(nivel){
+
+    if(nivel === 1){
+        return iniciar_itens_nivel_1()
+    }else if(nivel === 2){
+        return iniciar_itens_nivel_2()
+    }else{
+        return iniciar_itens_nivel_3()
+    }
+}
+
+
+function iniciar_itens_nivel_1(){
+    let torre_1 = [] , torre_2 = [] , torre_3 = []
+    let itens = 'RGB'.split('')
+    while(torre_1.length !== 9){
+        torre_1.push(itens[random_number(0,2)])
+    }
+    return [torre_1 , torre_2 , torre_3]
+}
+
+function iniciar_itens_nivel_2(){
+    let torre_1 = [] , torre_2 = [] , torre_3 = []
+    let itens = 'RGB'.split('')
+    while(torre_1.length + torre_2.length + torre_3.length !== 9){
+        const torre = random_number(1,3)
+        if(torre === 1 && torre_1.length < 4){
+            torre_1.push(itens[random_number(0,itens.length - 1)])
+        }else if(torre === 2 && torre_2.length < 3){
+            torre_2.push(itens[random_number(0,itens.length - 1)])
+        }else if(torre === 3 && torre_3.length < 2){
+            torre_3.push(itens[random_number(0,itens.length - 1)])
+        }
+    }
+
+    //verificaçao para que todas torres devem ter pelo menos um ou mais valores
+    if(torre_1.length === 0 || torre_2.length === 0 || torre_3.length === 0) return iniciar_itens_nivel_2()
+    
+    return [torre_1 , torre_2 , torre_3]
+}
+
+function iniciar_itens_nivel_3(){
+    let torre_1 = [] , torre_2 = [] , torre_3 = []
+    let itens = 'RGB'.split('')
+    while(torre_1.length + torre_2.length + torre_3.length !== 9){
+        const torre = random_number(1,3)
+        if(torre === 1 && torre_1.length < 3){
+            torre_1.push(itens[random_number(0,itens.length - 1)])
+        }else if(torre === 2 && torre_2.length < 3){
+            torre_2.push(itens[random_number(0,itens.length - 1)])
+        }else if(torre === 3 && torre_3.length < 3){
+            torre_3.push(itens[random_number(0,itens.length - 1)])
+        }
+    }
+
+    //verificaçao para que todas torres devem ter pelo menos um ou mais valores
+    if(torre_1.length === 0 || torre_2.length === 0 || torre_3.length === 0) return iniciar_itens_nivel_2()
+    
+    return [torre_1 , torre_2 , torre_3]
 }
