@@ -41,36 +41,6 @@ export function get_operation(msg){
     return entrada
 }
 
-export function iniciar_itens(tamanho){
-    let novo_vetor = []
-    let itens = 'RGB'.split('')
-    while(novo_vetor.length !== tamanho){
-        novo_vetor.push(itens[random_number(0,2)])
-    }
-    return novo_vetor
-}
-
-export function iniciar_itens_aleatorio(){
-    let novo_vetor = []
-    let posicoes_ja_iniciadas = []
-    let letras = ['R' , 'G' , 'B']
-    while(novo_vetor.length !== letras.length){
-        let posicao = random_number(0,2)
-        if(tem_posicao(posicoes_ja_iniciadas,posicao) === false){
-            novo_vetor.push(letras[posicao])
-            posicoes_ja_iniciadas.push(posicao)
-        }
-    }
-    return novo_vetor
-}
-
-function tem_posicao(vetor,posicao){
-    for(let i = 0; i < vetor.length;i++){
-        if(vetor[i] === posicao) return true
-    }
-    return false
-}
-
 export const e_igual = (vetor , criterio) => {
     let total = 0
     for(let i of vetor){
